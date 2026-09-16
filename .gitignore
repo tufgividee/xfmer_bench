@@ -1,0 +1,30 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+*$py.class
+.venv/
+env/
+venv/
+.pytest_cache/
+
+# Dataset files & raw data
+data/multi30k/raw/
+*.pt
+
+# Experiments & Checkpoints
+checkpoints_compile/
+checkpoints_eager/
+*.log
+
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/
+
+notes.md
+notebooks/
