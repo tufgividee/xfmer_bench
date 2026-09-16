@@ -70,6 +70,7 @@ def make_dataset(raw_file_name: str, dataset_name: str, tokenizer: Tokenizer):
 
 
 if __name__ == "__main__":
+    print("making tokenizers and datasets for Multi30k (word-level)...")
     # 1. Train tokenizers ONLY on training files
     tokenizer_en = make_tokenizer("train.en", "tokenizer_en")
     tokenizer_de = make_tokenizer("train.de", "tokenizer_de")
@@ -84,3 +85,4 @@ if __name__ == "__main__":
     for split_name, (en_file, de_file) in splits.items():
         make_dataset(en_file, f"{split_name}_en_ids", tokenizer_en)
         make_dataset(de_file, f"{split_name}_de_ids", tokenizer_de)
+    print("data preparation complete!")
