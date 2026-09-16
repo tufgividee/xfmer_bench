@@ -7,4 +7,4 @@ wget https://raw.githubusercontent.com/multi30k/dataset/master/data/task1/raw/va
 wget https://raw.githubusercontent.com/multi30k/dataset/master/data/task1/raw/test_2016_flickr.en.gz
 wget https://raw.githubusercontent.com/multi30k/dataset/master/data/task1/raw/test_2016_flickr.de.gz
 
-gunzip -v *.gz
+gunzip -vf *.gz
