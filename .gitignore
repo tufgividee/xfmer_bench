@@ -13,7 +13,8 @@ venv/
 .pytest_cache/
 
 # Dataset files & raw data
-data/multi30k/raw/
+data/multi30k/raw/*
+!data/multi30k/raw/download_data.sh
 *.pt
 
 # Experiments & Checkpoints
