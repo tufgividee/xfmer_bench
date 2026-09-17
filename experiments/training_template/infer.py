@@ -3,9 +3,9 @@ from pathlib import Path
 
 import torch
 
-from transformer import Transformer
-from transformer.data import load_tokenizer
-from transformer.inference import Translator
+from xfmr2017 import Transformer
+from xfmr2017.data import load_tokenizer
+from xfmr2017.inference import Translator
 
 # experiment directory
 script_dir = Path(__file__).resolve().parent

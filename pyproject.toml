@@ -1,5 +1,5 @@
 [project]
-name = "transformer"
+name = "xfmr2017"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.scripts]
-transformer = "transformer:main"
+xfmr2017 = "xfmr2017:main"
 
 [build-system]
 requires = ["uv_build>=0.12.13,<0.13.0"]

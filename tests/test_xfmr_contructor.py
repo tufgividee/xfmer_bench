@@ -1,9 +1,9 @@
 import torch
 
-from transformer.transformer import Transformer
+from xfmr2017.xfmr2017 import Transformer
 
 
-def test_transformer_forward_pass():
+def test_xfmr2017_forward_pass():
     """Verify that a full forward pass executes without errors and outputs correct dimensions."""
     # 1. Define hyperparameters
     src_vocab_size = 1000  
@@ -16,7 +16,15 @@ def test_transformer_forward_pass():
 
     # 2. Instantiate the Transformer model
     model = Transformer(
-        src_vocab_size, tgt_vocab_size, d_model, num_heads, num_layers, d_ff, dropout
+        src_vocab_size,
+        tgt_vocab_size,
+        d_model,
+        num_heads,
+        num_layers,
+        d_ff,
+        dropout,
+        src_pad_idx=0,
+        tgt_pad_idx=0,
     )
 
     # 3. Setup Example Input Tensors
