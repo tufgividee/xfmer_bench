@@ -1,6 +1,5 @@
 import torch
-
-from xfmr2017.xfmr2017 import Transformer
+from xfmr2017.transformer import Transformer
 
 
 def test_xfmr2017_forward_pass():

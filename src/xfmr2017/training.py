@@ -1,5 +1,6 @@
 import datetime
 import json
+import subprocess
 import time
 from pathlib import Path
 
@@ -43,20 +44,34 @@ class Trainer:
         self.log_path = self.checkpoint_dir / "training.log"
         self.log_path.unlink(missing_ok=True)
 
-    def save_config(self, timestamp_start: str) -> None:
-        config = {
-            **self.config,
-            "timestamp_start": timestamp_start,
-            "device": str(self.device),
-            "pytorch_version": torch.__version__,
-            "cuda_version": torch.version.cuda,
-        }
+def save_config(self, timestamp_start: str) -> None:
+    git_commit = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"],
+        text=True,
+    ).strip()
 
-        if self.device.type == "cuda":
-            config["gpu"] = torch.cuda.get_device_name(self.device)
+    git_dirty = bool(
+        subprocess.check_output(
+            ["git", "status", "--porcelain"],
+            text=True,
+        ).strip()
+    )
 
-        with open(self.config_path, "w") as f:
-            json.dump(config, f, indent=4)
+    config = {
+        **self.config,
+        "timestamp_start": timestamp_start,
+        "device": str(self.device),
+        "pytorch_version": torch.__version__,
+        "cuda_version": torch.version.cuda,
+        "git_commit": git_commit,
+        "git_dirty": git_dirty,
+    }
+
+    if self.device.type == "cuda":
+        config["gpu"] = torch.cuda.get_device_name(self.device)
+
+    with open(self.config_path, "w") as f:
+        json.dump(config, f, indent=4)
 
     def log(self, message: str) -> None:
         print(message)
@@ -92,7 +107,20 @@ class Trainer:
 
         return total_loss / len(self.train_loader)
 
+    def reset_peak_gpu_memory(self) -> None:
+        if self.device.type == "cuda":
+            torch.cuda.reset_peak_memory_stats(self.device)
+
+    def peak_gpu_memory_mb(self) -> float | None:
+        if self.device.type != "cuda":
+            return None
+
+        peak_memory = torch.cuda.max_memory_allocated(self.device)
+        return peak_memory / (1024 ** 2)
+
     def fit(self, epochs: int) -> None:
+        self.reset_peak_gpu_memory()
+
         timestamp_start = datetime.datetime.now(datetime.UTC).isoformat()
         start_time = time.perf_counter()
 
@@ -137,6 +165,12 @@ class Trainer:
             f"Average epoch time: "
             f"{total_time / epochs:.2f} s"
         )
+        peak_memory = self.peak_gpu_memory_mb()
+
+        if peak_memory is not None:
+            self.log(f"Peak GPU memory usage: {peak_memory:.2f} MB")
+        else:
+            self.log("Peak GPU memory usage: N/A")
 
     def validate(self) -> float:
         self.model.eval()
