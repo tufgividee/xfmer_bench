@@ -44,40 +44,40 @@ class Trainer:
         self.log_path = self.checkpoint_dir / "training.log"
         self.log_path.unlink(missing_ok=True)
 
-def save_config(self, timestamp_start: str) -> None:
-    git_commit = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"],
-        text=True,
-    ).strip()
-
-    git_dirty = bool(
-        subprocess.check_output(
-            ["git", "status", "--porcelain"],
+    def save_config(self, timestamp_start: str) -> None:
+        git_commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
             text=True,
         ).strip()
-    )
 
-    config = {
-        **self.config,
-        "timestamp_start": timestamp_start,
-        "device": str(self.device),
-        "pytorch_version": torch.__version__,
-        "cuda_version": torch.version.cuda,
-        "git_commit": git_commit,
-        "git_dirty": git_dirty,
-    }
+        git_dirty = bool(
+            subprocess.check_output(
+                ["git", "status", "--porcelain"],
+                text=True,
+            ).strip()
+        )
 
-    if self.device.type == "cuda":
-        config["gpu"] = torch.cuda.get_device_name(self.device)
+        config = {
+            **self.config,
+            "timestamp_start": timestamp_start,
+            "device": str(self.device),
+            "pytorch_version": torch.__version__,
+            "cuda_version": torch.version.cuda,
+            "git_commit": git_commit,
+            "git_dirty": git_dirty,
+        }
 
-    with open(self.config_path, "w") as f:
-        json.dump(config, f, indent=4)
+        if self.device.type == "cuda":
+            config["gpu"] = torch.cuda.get_device_name(self.device)
 
-    def log(self, message: str) -> None:
-        print(message)
+        with open(self.config_path, "w") as f:
+            json.dump(config, f, indent=4)
 
-        with open(self.log_path, "a") as f:
-            f.write(message + "\n")
+        def log(self, message: str) -> None:
+            print(message)
+
+            with open(self.log_path, "a") as f:
+                f.write(message + "\n")
 
     def train_epoch(self) -> float:
         self.model.train()
