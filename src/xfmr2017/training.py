@@ -73,11 +73,11 @@ class Trainer:
         with open(self.config_path, "w") as f:
             json.dump(config, f, indent=4)
 
-        def log(self, message: str) -> None:
-            print(message)
+    def log(self, message: str) -> None:
+        print(message)
 
-            with open(self.log_path, "a") as f:
-                f.write(message + "\n")
+        with open(self.log_path, "a") as f:
+            f.write(message + "\n")
 
     def train_epoch(self) -> float:
         self.model.train()
