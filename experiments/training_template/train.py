@@ -80,7 +80,7 @@ hyperparams = {
     "dropout": 0.1,
 }
 
-n_epochs = 5
+n_epochs = 2
 # experiment configuration
 config = {
     "dataset": str(data_dir.relative_to(project_dir)),
