@@ -73,14 +73,14 @@ device = torch.device(
 
 # hyperparameters
 hyperparams = {
-    "d_model": 256,
-    "num_heads": 4,
-    "num_layers": 4,
-    "d_ff": 512,
+    "d_model": 512,
+    "num_heads": 8,
+    "num_layers": 6,
+    "d_ff": 2048,
     "dropout": 0.1,
 }
 
-n_epochs = 2
+n_epochs = 50
 # experiment configuration
 config = {
     "dataset": str(data_dir.relative_to(project_dir)),
