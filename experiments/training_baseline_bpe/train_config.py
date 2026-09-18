@@ -3,15 +3,16 @@ CONFIG = {
     "is_compile": False,
 
     # Data
-    "data_dir": "data/multi30k/tok_wordlevel_data_build_hf",
+    "data_dir": "data/multi30k/tok_bpe_data_build_hf",
+    "raw_data_dir": "data/multi30k/raw",
     "train_src": "train_en_ids.pt",
     "train_tgt": "train_de_ids.pt",
     "val_src": "val_en_ids.pt",
     "val_tgt": "val_de_ids.pt",
 
     # Tokenizers
-    "tokenizer_src": "tokenizer_en.json",
-    "tokenizer_tgt": "tokenizer_de.json",
+    "tokenizer_src": "tokenizer.json",
+    "tokenizer_tgt": "tokenizer.json",
 
     # Special tokens
     "src_pad_token": "[PAD]",
