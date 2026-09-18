@@ -3,9 +3,9 @@ from pathlib import Path
 import torch
 from torch import nn, optim
 
-from xfmr2017.data import create_dataloader, load_tokenizer
-from xfmr2017.training import Trainer
-from xfmr2017.transformer import Transformer
+from xfmr.xfmr2017.data import create_dataloader, load_tokenizer
+from xfmr.xfmr2017.training import Trainer
+from xfmr.xfmr2017.transformer import Transformer
 
 is_compile = False
 
