@@ -3,7 +3,7 @@ CONFIG = {
     "is_compile": False,
 
     # Data
-    "data_dir": "data/multi30k/tok_bpe_data_build_hf",
+    "data_dir": "data/multi30k/tok_bpe_data_build",
     "raw_data_dir": "data/multi30k/raw",
     "train_src": "train_en_ids.pt",
     "train_tgt": "train_de_ids.pt",
