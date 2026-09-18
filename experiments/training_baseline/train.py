@@ -11,7 +11,7 @@ experiment_dir = Path(__file__).resolve().parent
 
 trainer, config = build_exp_for_train(
     experiment_dir,
-    vars(cfg),
+    cfg.CONFIG,
 )
 
-trainer.fit(epochs=cfg.epochs)
+trainer.fit(epochs=cfg.CONFIG["epochs"])
